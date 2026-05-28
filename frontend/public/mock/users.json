@@ -1,0 +1,13 @@
+{
+  "users": [
+    {
+      "id": "sa-1",
+      "firstName": "Himanshu",
+      "lastName": "Gupta",
+      "email": "himanshu561hi@gmail.com",
+      "password": "Himanshu@80",
+      "role": "SUPER_ADMIN",
+      "mustChangePassword": false
+    }
+  ]
+}
