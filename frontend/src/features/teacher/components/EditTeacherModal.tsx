@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Modal from "@/components/ui/Modal";
@@ -31,7 +31,7 @@ function EditTeacherModal({
     setValue,
     formState: { errors },
   } = useForm<TeacherFormValues>({
-    resolver: zodResolver(teacherSchema),
+    resolver: zodResolver(teacherSchema) as Resolver<TeacherFormValues>,
     defaultValues: {
       fullName: "",
       email: "",
@@ -82,7 +82,12 @@ function EditTeacherModal({
   };
 
   return (
-    <Modal isOpen={Boolean(teacher)} onClose={onClose} title="Edit Teacher" maxWidth="max-w-2xl">
+    <Modal
+      isOpen={Boolean(teacher)}
+      onClose={onClose}
+      title="Edit Teacher"
+      maxWidth="max-w-2xl"
+    >
       <TeacherForm
         register={register}
         errors={errors}

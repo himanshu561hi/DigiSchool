@@ -1,4 +1,4 @@
-import type { Teacher } from '../types/teacher.types';
+import type { Teacher, UpdateTeacherPayload } from '../types/teacher.types';
 
 
 export const getTeachers = async (
@@ -23,18 +23,40 @@ export const createTeacher = async (teacher: Teacher): Promise<Teacher> => {
   });
 };
 
-export const updateTeacher = async (teacher: Teacher): Promise<Teacher> => {
+export const updateTeacher = async (teacher: Teacher | UpdateTeacherPayload): Promise<Teacher> => {
   return new Promise<Teacher>((resolve) => {
     setTimeout(() => {
       const localTeachers: Teacher[] = JSON.parse(localStorage.getItem("mock_teachers") || "[]");
-      const idx = localTeachers.findIndex(t => t.id === teacher.id);
+      const teacherRecord = teacher as Partial<Teacher> & Partial<UpdateTeacherPayload>;
+      const existing = localTeachers.find((t) => t.id === teacher.id);
+      const normalizedTeacher: Teacher = {
+        id: teacher.id,
+        schoolId: teacherRecord.schoolId || existing?.schoolId || "school-1",
+        fullName: teacherRecord.fullName || existing?.fullName || "",
+        email: teacherRecord.email || existing?.email || "",
+        phone: teacherRecord.phone || existing?.phone || "",
+        password: teacherRecord.password ?? existing?.password,
+        firstLogin: teacherRecord.firstLogin ?? existing?.firstLogin ?? true,
+        employeeId: teacherRecord.employeeId || existing?.employeeId || "",
+        department: teacherRecord.department || existing?.department || "",
+        subject: teacherRecord.subject || existing?.subject || "",
+        qualification: teacherRecord.qualification || existing?.qualification || "",
+        experienceYears: teacherRecord.experienceYears ?? existing?.experienceYears ?? 0,
+        joiningDate: teacherRecord.joiningDate || existing?.joiningDate || new Date().toISOString(),
+        coordinatorFor: teacherRecord.coordinatorFor ?? existing?.coordinatorFor,
+        status: teacherRecord.status || existing?.status || "ACTIVE",
+        createdAt: existing?.createdAt || new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        profilePic: teacherRecord.profilePic ?? existing?.profilePic,
+      };
+      const idx = localTeachers.findIndex(t => t.id === normalizedTeacher.id);
       if (idx !== -1) {
-        localTeachers[idx] = teacher;
+        localTeachers[idx] = normalizedTeacher;
       } else {
-        localTeachers.push(teacher);
+        localTeachers.push(normalizedTeacher);
       }
       localStorage.setItem("mock_teachers", JSON.stringify(localTeachers));
-      resolve(teacher);
+      resolve(normalizedTeacher);
     }, 800);
   });
 };

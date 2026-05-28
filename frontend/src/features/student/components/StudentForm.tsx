@@ -17,7 +17,7 @@ import { useAuthStore } from "@/features/auth/store/authStore";
 type StudentFormProps = {
   register: UseFormRegister<StudentFormValues>;
   errors: FieldErrors<StudentFormValues>;
-  handleSubmit: UseFormHandleSubmit<StudentFormValues>;
+  handleSubmit: UseFormHandleSubmit<StudentFormValues, any>;
   onSubmit: (values: StudentFormValues) => void;
   onCancel: () => void;
   isEditing: boolean;
@@ -99,7 +99,9 @@ function StudentForm({
         <SectionLabel icon={GraduationCap} label="Academic Details" />
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Class</label>
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+            Class
+          </label>
           <select
             {...register("className")}
             className={`
@@ -186,7 +188,9 @@ function StudentForm({
           <Input
             label="Password"
             type="password"
-            placeholder={isEditing ? "Leave blank to keep current" : "Min 6 characters"}
+            placeholder={
+              isEditing ? "Leave blank to keep current" : "Min 6 characters"
+            }
             {...register("password")}
           />
           <FormError message={errors.password?.message} />

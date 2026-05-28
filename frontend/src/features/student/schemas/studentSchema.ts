@@ -61,5 +61,18 @@ export const studentSchema = z.object({
   firstLogin: z.boolean().default(true),
 });
 
-export type StudentFormValues =
-  z.infer<typeof studentSchema>;
+export type StudentFormValues = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  className: string;
+  rollNumber: string;
+  fatherName?: string;
+  motherName?: string;
+  fatherPhone?: string;
+  motherPhone?: string;
+  address?: string;
+  password: string;
+  firstLogin: boolean;
+};

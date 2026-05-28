@@ -1,5 +1,6 @@
 export type AttendanceData = {
-  label: string;
+  label?: string;
+  month?: string;
   attendance: number;
   teachers?: number;
 };

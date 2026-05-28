@@ -21,7 +21,7 @@ type StudentModalProps = {
 
   errors: FieldErrors<StudentFormValues>;
 
-  handleSubmit: UseFormHandleSubmit<StudentFormValues>;
+  handleSubmit: UseFormHandleSubmit<StudentFormValues, any>;
 
   onSubmit: (values: StudentFormValues) => void;
 };

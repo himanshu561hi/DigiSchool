@@ -1,5 +1,8 @@
 import { Bell, X, Trash2, Info } from "lucide-react";
-import { useNotificationStore, type AppNotification } from "@/features/notification/store/notificationStore";
+import {
+  useNotificationStore,
+  type AppNotification,
+} from "@/features/notification/store/notificationStore";
 import { useAuthStore } from "@/features/auth/store/authStore";
 import { getStudents } from "@/features/student/services/student.service";
 import { useState, useEffect } from "react";
@@ -9,16 +12,21 @@ function NotificationsPage() {
   const { user } = useAuthStore();
   const role = user?.role;
   const notifications = useNotificationStore((state) => state.notifications);
-  const removeNotification = useNotificationStore((state) => state.removeNotification);
-  const clearRoleNotifications = useNotificationStore((state) => state.clearRoleNotifications);
+  const removeNotification = useNotificationStore(
+    (state) => state.removeNotification,
+  );
+  const clearRoleNotifications = useNotificationStore(
+    (state) => state.clearRoleNotifications,
+  );
 
   const [studentClassName, setStudentClassName] = useState<string | null>(null);
-  const [selectedNotification, setSelectedNotification] = useState<AppNotification | null>(null);
+  const [selectedNotification, setSelectedNotification] =
+    useState<AppNotification | null>(null);
 
   useEffect(() => {
     if (role === "STUDENT" && user?.id) {
-      getStudents(user.schoolId).then(students => {
-        const me = students.find(s => s.id === user.id);
+      getStudents(user.schoolId).then((students) => {
+        const me = students.find((s) => s.id === user.id);
         if (me?.className) {
           setStudentClassName(me.className);
         }
@@ -31,13 +39,13 @@ function NotificationsPage() {
     if (!role) return false;
     if (n.schoolId && n.schoolId !== user?.schoolId) return false;
     if (n.targetRole !== role.toUpperCase()) return false;
-    
+
     // For student, check if it targets specific class or student
     if (role.toUpperCase() === "STUDENT") {
       if (n.studentId && n.studentId !== user?.id) return false;
       if (n.classId && n.classId !== studentClassName) return false;
     }
-    
+
     return true;
   });
 
@@ -81,7 +89,9 @@ function NotificationsPage() {
                     {new Date(n.createdAt).toLocaleString()}
                   </p>
                 </div>
-                <p className="text-slate-800 dark:text-slate-100 font-medium line-clamp-2">{n.message}</p>
+                <p className="text-slate-800 dark:text-slate-100 font-medium line-clamp-2">
+                  {n.message}
+                </p>
                 <div className="mt-3 flex items-center gap-1.5 text-xs font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                   <Info className="h-4 w-4" /> View Details
                 </div>
@@ -106,7 +116,7 @@ function NotificationsPage() {
           isOpen={!!selectedNotification}
           onClose={() => setSelectedNotification(null)}
           title={selectedNotification.title || "Notification Details"}
-          size="lg"
+          maxWidth="max-w-4xl"
         >
           <div className="p-1 space-y-6">
             <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl">
@@ -114,21 +124,28 @@ function NotificationsPage() {
                 {selectedNotification.message}
               </p>
               <p className="mt-2 text-xs font-semibold text-slate-500">
-                Received on: {new Date(selectedNotification.createdAt).toLocaleString()}
+                Received on:{" "}
+                {new Date(selectedNotification.createdAt).toLocaleString()}
               </p>
             </div>
-            
+
             {selectedNotification.details && (
               <div>
-                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Detailed Information</h4>
-                <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl shadow-sm text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed"
-                     dangerouslySetInnerHTML={{
-                       __html: selectedNotification.details.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-900 dark:text-white">$1</strong>')
-                     }}
+                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+                  Detailed Information
+                </h4>
+                <div
+                  className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 rounded-xl shadow-sm text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed"
+                  dangerouslySetInnerHTML={{
+                    __html: selectedNotification.details.replace(
+                      /\*\*(.*?)\*\*/g,
+                      '<strong class="font-bold text-slate-900 dark:text-white">$1</strong>',
+                    ),
+                  }}
                 />
               </div>
             )}
-            
+
             <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
               <button
                 onClick={() => setSelectedNotification(null)}

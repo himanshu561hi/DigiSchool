@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -28,9 +28,7 @@ const INITIAL_FORM: StudentFormValues = {
 export function useStudentForm() {
   const form =
     useForm<StudentFormValues>({
-      resolver: zodResolver(
-        studentSchema,
-      ),
+      resolver: zodResolver(studentSchema) as Resolver<StudentFormValues>,
 
       defaultValues: INITIAL_FORM,
     });

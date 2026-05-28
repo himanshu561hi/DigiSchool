@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
-import { User, Briefcase, GraduationCap, Calendar, Phone, Lock } from "lucide-react";
+import {
+  User,
+  Briefcase,
+  GraduationCap,
+  Calendar,
+  Phone,
+  Lock,
+} from "lucide-react";
 
 import type {
   UseFormHandleSubmit,
   UseFormRegister,
   FieldErrors,
   UseFormWatch,
-  UseFormSetValue
+  UseFormSetValue,
 } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -21,7 +28,7 @@ import { useAuthStore } from "@/features/auth/store/authStore";
 type TeacherFormProps = {
   register: UseFormRegister<TeacherFormValues>;
   errors: FieldErrors<TeacherFormValues>;
-  handleSubmit: UseFormHandleSubmit<TeacherFormValues>;
+  handleSubmit: UseFormHandleSubmit<TeacherFormValues, any>;
   watch: UseFormWatch<TeacherFormValues>;
   setValue: UseFormSetValue<TeacherFormValues>;
   onSubmit: (values: TeacherFormValues) => void;
@@ -61,33 +68,42 @@ function TeacherForm({
   const { user } = useAuthStore();
   const [availableSubjects, setAvailableSubjects] = useState<string[]>([]);
   const [isSubjectDropdownOpen, setIsSubjectDropdownOpen] = useState(false);
-  
+
   useEffect(() => {
     const subjectsMap = getClassSubjects(user?.schoolId);
     const allSubjects = new Set<string>();
-    Object.values(subjectsMap).forEach(subs => {
-      subs.forEach(s => allSubjects.add(s));
+    Object.values(subjectsMap).forEach((subs) => {
+      subs.forEach((s) => allSubjects.add(s));
     });
     setAvailableSubjects(Array.from(allSubjects).sort());
   }, []);
-  
+
   const rawSubject = watch("subject") || "";
   let selectedSubjects: string[] = [];
   if (Array.isArray(rawSubject)) {
     selectedSubjects = rawSubject;
-  } else if (typeof rawSubject === 'string') {
-    selectedSubjects = rawSubject.split(",").map(s => s.trim()).filter(Boolean);
+  } else if (typeof rawSubject === "string") {
+    selectedSubjects = rawSubject
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
   }
 
   const toggleSubject = (sub: string) => {
     if (selectedSubjects.includes(sub)) {
-      setValue("subject", selectedSubjects.filter(s => s !== sub).join(", "), { shouldValidate: true });
+      setValue(
+        "subject",
+        selectedSubjects.filter((s) => s !== sub).join(", "),
+        { shouldValidate: true },
+      );
     } else {
       if (selectedSubjects.length >= 5) {
         toast.error("You can select up to 5 subjects only.");
         return;
       }
-      setValue("subject", [...selectedSubjects, sub].join(", "), { shouldValidate: true });
+      setValue("subject", [...selectedSubjects, sub].join(", "), {
+        shouldValidate: true,
+      });
     }
   };
   return (
@@ -97,17 +113,31 @@ function TeacherForm({
         <SectionLabel icon={User} label="Personal Information" />
 
         <div>
-          <Input label="Full Name" placeholder="e.g. Aditi Sharma" {...register("fullName")} />
+          <Input
+            label="Full Name"
+            placeholder="e.g. Aditi Sharma"
+            {...register("fullName")}
+          />
           <FormError message={errors.fullName?.message} />
         </div>
 
         <div>
-          <Input label="Email" type="email" placeholder="teacher@example.com" {...register("email")} />
+          <Input
+            label="Email"
+            type="email"
+            placeholder="teacher@example.com"
+            {...register("email")}
+          />
           <FormError message={errors.email?.message} />
         </div>
 
         <div>
-          <Input label="Phone" type="tel" placeholder="+91 98765 43210" {...register("phone")} />
+          <Input
+            label="Phone"
+            type="tel"
+            placeholder="+91 98765 43210"
+            {...register("phone")}
+          />
           <FormError message={errors.phone?.message} />
         </div>
 
@@ -115,12 +145,20 @@ function TeacherForm({
         <SectionLabel icon={Briefcase} label="Work & Department" />
 
         <div>
-          <Input label="Employee ID" placeholder="e.g. EMP-101" {...register("employeeId")} />
+          <Input
+            label="Employee ID"
+            placeholder="e.g. EMP-101"
+            {...register("employeeId")}
+          />
           <FormError message={errors.employeeId?.message} />
         </div>
 
         <div>
-          <Input label="Department" placeholder="e.g. Science" {...register("department")} />
+          <Input
+            label="Department"
+            placeholder="e.g. Science"
+            {...register("department")}
+          />
           <FormError message={errors.department?.message} />
         </div>
 
@@ -129,16 +167,28 @@ function TeacherForm({
             Subjects (Select up to 5)
           </label>
           <div className="relative">
-            <div 
+            <div
               className={`w-full min-h-[42px] rounded-xl border flex flex-wrap gap-1.5 items-center px-3 py-2 cursor-pointer bg-white dark:bg-slate-800 transition-colors ${errors.subject ? "border-red-400 focus:border-red-500 focus:ring-red-200" : "border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"}`}
               onClick={() => setIsSubjectDropdownOpen(!isSubjectDropdownOpen)}
             >
               {selectedSubjects.length === 0 && (
-                <span className="text-sm text-slate-400">Select subjects...</span>
+                <span className="text-sm text-slate-400">
+                  Select subjects...
+                </span>
               )}
               {selectedSubjects.map((sub) => (
-                <span key={sub} className="px-2 py-1 bg-primary/10 text-primary rounded-md text-xs font-semibold flex items-center gap-1" onClick={(e) => { e.stopPropagation(); toggleSubject(sub); }}>
-                  {sub} <span className="hover:text-red-500 cursor-pointer ml-0.5">×</span>
+                <span
+                  key={sub}
+                  className="px-2 py-1 bg-primary/10 text-primary rounded-md text-xs font-semibold flex items-center gap-1"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleSubject(sub);
+                  }}
+                >
+                  {sub}{" "}
+                  <span className="hover:text-red-500 cursor-pointer ml-0.5">
+                    ×
+                  </span>
                 </span>
               ))}
             </div>
@@ -158,8 +208,12 @@ function TeacherForm({
                         onClick={() => toggleSubject(sub)}
                         className={`px-4 py-2 text-sm cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 flex items-center gap-2 ${isSelected ? "text-primary font-medium bg-primary/5 dark:bg-primary/10" : "text-slate-700 dark:text-slate-300"}`}
                       >
-                        <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? "bg-primary border-primary" : "border-slate-300 dark:border-slate-600"}`}>
-                          {isSelected && <span className="text-white text-[10px]">✓</span>}
+                        <div
+                          className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? "bg-primary border-primary" : "border-slate-300 dark:border-slate-600"}`}
+                        >
+                          {isSelected && (
+                            <span className="text-white text-[10px]">✓</span>
+                          )}
                         </div>
                         {sub}
                       </div>
@@ -168,10 +222,13 @@ function TeacherForm({
                 )}
               </div>
             )}
-            
+
             {/* Overlay to close dropdown */}
             {isSubjectDropdownOpen && (
-              <div className="fixed inset-0 z-0" onClick={() => setIsSubjectDropdownOpen(false)} />
+              <div
+                className="fixed inset-0 z-0"
+                onClick={() => setIsSubjectDropdownOpen(false)}
+              />
             )}
           </div>
           <input type="hidden" {...register("subject")} />
@@ -203,7 +260,11 @@ function TeacherForm({
         <SectionLabel icon={GraduationCap} label="Qualification & Experience" />
 
         <div>
-          <Input label="Qualification" placeholder="e.g. M.Sc, B.Ed" {...register("qualification")} />
+          <Input
+            label="Qualification"
+            placeholder="e.g. M.Sc, B.Ed"
+            {...register("qualification")}
+          />
           <FormError message={errors.qualification?.message} />
         </div>
 
@@ -220,7 +281,11 @@ function TeacherForm({
         <SectionLabel icon={Calendar} label="Joining Details" />
 
         <div className="sm:col-span-2">
-          <Input label="Joining Date" type="date" {...register("joiningDate")} />
+          <Input
+            label="Joining Date"
+            type="date"
+            {...register("joiningDate")}
+          />
           <FormError message={errors.joiningDate?.message} />
         </div>
 
@@ -231,7 +296,9 @@ function TeacherForm({
           <Input
             label="Password"
             type="password"
-            placeholder={isEditing ? "Leave blank to keep current" : "Min 6 characters"}
+            placeholder={
+              isEditing ? "Leave blank to keep current" : "Min 6 characters"
+            }
             {...register("password")}
           />
           <FormError message={errors.password?.message} />

@@ -40,6 +40,17 @@ export const teacherSchema = z.object({
   status: z.enum(['ACTIVE', 'INACTIVE']).default('ACTIVE'),
 });
 
-export type TeacherFormValues = z.infer<
-  typeof teacherSchema
->;
+export type TeacherFormValues = {
+  fullName: string;
+  email: string;
+  phone: string;
+  employeeId: string;
+  department: string;
+  subject: string;
+  qualification: string;
+  experienceYears: number;
+  joiningDate: string;
+  password: string;
+  firstLogin: boolean;
+  status: "ACTIVE" | "INACTIVE";
+};

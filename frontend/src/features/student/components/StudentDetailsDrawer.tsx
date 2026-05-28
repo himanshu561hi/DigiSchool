@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import type { Student } from '../types/student.types';
-import StudentDetails from './StudentDetails';
-import { X } from 'lucide-react';
+import React, { useState } from "react";
+import type { Student } from "../types/student.types";
+import StudentDetails from "./StudentDetails";
+import { MoreVertical, X } from "lucide-react";
 
 type StudentDetailsDrawerProps = {
   student: Student;
 };
 
-export default function StudentDetailsDrawer({ student }: StudentDetailsDrawerProps) {
+export default function StudentDetailsDrawer({
+  student,
+}: StudentDetailsDrawerProps) {
   const [open, setOpen] = useState(false);
 
   return (

@@ -148,7 +148,16 @@ export const toggleAdmitApproval = (studentId: string, examId: string, approved:
   if (existing) {
     existing.approved = approved;
   } else {
-    approvals.push({ studentId, examId, approved });
+    approvals.push({
+      studentId,
+      studentName: "",
+      className: "",
+      rollNumber: "",
+      attendance: 0,
+      feeDue: false,
+      examId,
+      approved,
+    });
   }
   saveAdmitApprovals(approvals, schoolId);
 };

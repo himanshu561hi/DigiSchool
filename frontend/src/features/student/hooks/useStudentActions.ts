@@ -78,7 +78,8 @@ export function useStudentActions(
               details: `The school administration has updated your personal or academic records. Please review your profile for the latest information.`,
               targetRole: 'STUDENT',
               studentId: updatedStudent.id,
-              classId: updatedStudent.className
+              classId: updatedStudent.className,
+              type: 'general'
             });
           },
         },
@@ -91,8 +92,8 @@ export function useStudentActions(
       id: typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : `std_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       schoolId: user?.schoolId || "school-1",
       attendance: 100,
-      firstLogin: true,
       ...values,
+      firstLogin: values.firstLogin ?? true,
       password: values.password || "Welcome@123",
     };
 
@@ -109,6 +110,7 @@ export function useStudentActions(
             details: `**Name:** ${createdStudent.firstName} ${createdStudent.lastName}\n**Class:** ${createdStudent.className}\n**Roll No:** ${createdStudent.rollNumber}\n\nPlease welcome the new student to your class.`,
             targetRole: 'TEACHER',
             classId: createdStudent.className,
+            type: 'general'
           });
           
           addNotification({
@@ -116,6 +118,7 @@ export function useStudentActions(
             message: `New student admission completed: ${createdStudent.firstName} ${createdStudent.lastName} (Class ${createdStudent.className})`,
             details: `**Student:** ${createdStudent.firstName} ${createdStudent.lastName}\n**Class:** ${createdStudent.className}\n**Roll No:** ${createdStudent.rollNumber}\n**Contact:** ${createdStudent.phone || 'N/A'}\n\nThe student profile was successfully created and assigned.`,
             targetRole: 'MANAGER',
+            type: 'general'
           });
         },
       },

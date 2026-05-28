@@ -34,18 +34,58 @@ type RoleConfig = {
 
 // ─── Constants ─────────────────────────────────────────────────────
 const CONFETTI_COLORS = [
-  "#FF577F", "#FF884B", "#FFD384", "#FFF9B0",
-  "#7EB5FF", "#B983FF", "#94FFD8", "#FF6B6B",
-  "#4ECDC4", "#FFE66D", "#A8E6CF", "#FFB7B2",
-  "#FFDAC1", "#C7CEEA", "#E2F0CB", "#FF85A2",
-  "#F72585", "#7209B7", "#3A0CA3", "#4361EE",
-  "#4CC9F0", "#06D6A0", "#FFD166", "#EF476F",
+  "#FF577F",
+  "#FF884B",
+  "#FFD384",
+  "#FFF9B0",
+  "#7EB5FF",
+  "#B983FF",
+  "#94FFD8",
+  "#FF6B6B",
+  "#4ECDC4",
+  "#FFE66D",
+  "#A8E6CF",
+  "#FFB7B2",
+  "#FFDAC1",
+  "#C7CEEA",
+  "#E2F0CB",
+  "#FF85A2",
+  "#F72585",
+  "#7209B7",
+  "#3A0CA3",
+  "#4361EE",
+  "#4CC9F0",
+  "#06D6A0",
+  "#FFD166",
+  "#EF476F",
 ];
 
 const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
+  SUPER_ADMIN: {
+    roleBadge: "Super Admin Role Activated",
+    subtitle: "Welcome to the control center of your school ecosystem.",
+    features: [
+      { icon: "🛠️", label: "System Overview" },
+      { icon: "🏫", label: "Manage Schools" },
+      { icon: "📊", label: "Analytics" },
+      { icon: "🔐", label: "Access Management" },
+    ],
+    trophyIcon: (
+      <svg
+        className="w-10 h-10 text-white drop-shadow-md"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
+      </svg>
+    ),
+    trophyGradient: "from-violet-400 via-fuchsia-500 to-pink-600",
+    trophyShadow: "shadow-violet-500/30",
+  },
   MANAGER: {
     roleBadge: "Manager Role Activated",
-    subtitle: "Welcome aboard! You now have full administrative control over your school.",
+    subtitle:
+      "Welcome aboard! You now have full administrative control over your school.",
     features: [
       { icon: "🏫", label: "Manage School" },
       { icon: "👨‍🏫", label: "Manage Teachers" },
@@ -53,7 +93,11 @@ const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
       { icon: "📅", label: "Schedule Exams" },
     ],
     trophyIcon: (
-      <svg className="w-10 h-10 text-white drop-shadow-md" viewBox="0 0 24 24" fill="currentColor">
+      <svg
+        className="w-10 h-10 text-white drop-shadow-md"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
       </svg>
     ),
@@ -62,7 +106,8 @@ const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
   },
   TEACHER: {
     roleBadge: "Teacher Role Activated",
-    subtitle: "Welcome to our school family! We are absolutely thrilled to have you on board.",
+    subtitle:
+      "Welcome to our school family! We are absolutely thrilled to have you on board.",
     features: [
       { icon: "📋", label: "Mark Attendance" },
       { icon: "📚", label: "Manage Lectures" },
@@ -70,7 +115,11 @@ const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
       { icon: "📊", label: "Student Progress" },
     ],
     trophyIcon: (
-      <svg className="w-10 h-10 text-white drop-shadow-md" viewBox="0 0 24 24" fill="currentColor">
+      <svg
+        className="w-10 h-10 text-white drop-shadow-md"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
         <path d="M5 3h14c.55 0 1 .45 1 1v2c0 2.76-2.24 5-5 5h-.06c-.44 1.73-1.72 3.09-3.44 3.56V17h3v2H8.5v-2h3v-2.44c-1.72-.47-3-1.83-3.44-3.56H8c-2.76 0-5-2.24-5-5V4c0-.55.45-1 1-1zm0 3v1c0 1.65 1.35 3 3 3h.5V6H5zm14 0h-3.5v4H16c1.65 0 3-1.35 3-3V6zM7 21h10v1H7v-1z" />
       </svg>
     ),
@@ -79,7 +128,8 @@ const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
   },
   STUDENT: {
     roleBadge: "Student Profile Activated",
-    subtitle: "Welcome to your learning journey! Your academic dashboard is ready.",
+    subtitle:
+      "Welcome to your learning journey! Your academic dashboard is ready.",
     features: [
       { icon: "📖", label: "View Classes" },
       { icon: "📝", label: "Assignments" },
@@ -87,7 +137,11 @@ const ROLE_CONFIGS: Record<UserRole, RoleConfig> = {
       { icon: "📅", label: "Exam Schedule" },
     ],
     trophyIcon: (
-      <svg className="w-10 h-10 text-white drop-shadow-md" viewBox="0 0 24 24" fill="currentColor">
+      <svg
+        className="w-10 h-10 text-white drop-shadow-md"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
         <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
       </svg>
     ),
@@ -226,7 +280,14 @@ export default function FirstLoginCongrats({ role }: FirstLoginCongratsProps) {
 
     particlesRef.current = [];
 
-    const addBurst = (cx: number, cy: number, count: number, spread: number, sMin: number, sMax: number) => {
+    const addBurst = (
+      cx: number,
+      cy: number,
+      count: number,
+      spread: number,
+      sMin: number,
+      sMax: number,
+    ) => {
       for (let i = 0; i < count; i++) {
         particlesRef.current.push(createParticle(cx, cy, spread, sMin, sMax));
       }
@@ -236,29 +297,37 @@ export default function FirstLoginCongrats({ role }: FirstLoginCongratsProps) {
     addBurst(W / 2, H * 0.35, 200, W * 0.4, 6, 14);
 
     // Wave 2 — left corner burst
-    timeoutsRef.current.push(setTimeout(() => {
-      if (!canvasRef.current) return;
-      addBurst(W * 0.1, H * 0.1, 100, 80, 5, 12);
-    }, 400));
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        if (!canvasRef.current) return;
+        addBurst(W * 0.1, H * 0.1, 100, 80, 5, 12);
+      }, 400),
+    );
 
     // Wave 3 — right corner burst
-    timeoutsRef.current.push(setTimeout(() => {
-      if (!canvasRef.current) return;
-      addBurst(W * 0.9, H * 0.1, 100, 80, 5, 12);
-    }, 700));
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        if (!canvasRef.current) return;
+        addBurst(W * 0.9, H * 0.1, 100, 80, 5, 12);
+      }, 700),
+    );
 
     // Wave 4 — bottom center rain
-    timeoutsRef.current.push(setTimeout(() => {
-      if (!canvasRef.current) return;
-      addBurst(W / 2, H * 0.15, 120, W * 0.6, 3, 8);
-    }, 1100));
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        if (!canvasRef.current) return;
+        addBurst(W / 2, H * 0.15, 120, W * 0.6, 3, 8);
+      }, 1100),
+    );
 
     // Wave 5 — extra sparkle
-    timeoutsRef.current.push(setTimeout(() => {
-      if (!canvasRef.current) return;
-      addBurst(W * 0.3, H * 0.2, 60, 120, 4, 10);
-      addBurst(W * 0.7, H * 0.2, 60, 120, 4, 10);
-    }, 1600));
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        if (!canvasRef.current) return;
+        addBurst(W * 0.3, H * 0.2, 60, 120, 4, 10);
+        addBurst(W * 0.7, H * 0.2, 60, 120, 4, 10);
+      }, 1600),
+    );
 
     const animate = () => {
       if (!canvasRef.current) return;
@@ -344,7 +413,8 @@ export default function FirstLoginCongrats({ role }: FirstLoginCongratsProps) {
       {/* Premium Congratulations Card */}
       <div
         style={{
-          background: "linear-gradient(135deg, #0f0c29 0%, #302b63 40%, #24243e 100%)",
+          background:
+            "linear-gradient(135deg, #0f0c29 0%, #302b63 40%, #24243e 100%)",
           backgroundSize: "400% 400%",
           animation: "congrats-gradient 6s ease infinite",
         }}
@@ -352,16 +422,57 @@ export default function FirstLoginCongrats({ role }: FirstLoginCongratsProps) {
       >
         {/* Inner glassmorphism card */}
         <div className="relative overflow-hidden rounded-[22px] bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl p-8 md:p-10">
-          
           {/* Floating decorative stars */}
           {[
-            { top: "8%", left: "5%", size: 18, delay: "0s", anim: "congrats-float" },
-            { top: "12%", right: "8%", size: 14, delay: "0.5s", anim: "congrats-float-alt" },
-            { bottom: "15%", left: "12%", size: 12, delay: "1s", anim: "congrats-float" },
-            { top: "20%", right: "20%", size: 10, delay: "1.5s", anim: "congrats-float-alt" },
-            { bottom: "10%", right: "6%", size: 16, delay: "0.8s", anim: "congrats-float" },
-            { top: "40%", left: "3%", size: 8, delay: "2s", anim: "congrats-star-twinkle" },
-            { top: "60%", right: "4%", size: 10, delay: "0.3s", anim: "congrats-star-twinkle" },
+            {
+              top: "8%",
+              left: "5%",
+              size: 18,
+              delay: "0s",
+              anim: "congrats-float",
+            },
+            {
+              top: "12%",
+              right: "8%",
+              size: 14,
+              delay: "0.5s",
+              anim: "congrats-float-alt",
+            },
+            {
+              bottom: "15%",
+              left: "12%",
+              size: 12,
+              delay: "1s",
+              anim: "congrats-float",
+            },
+            {
+              top: "20%",
+              right: "20%",
+              size: 10,
+              delay: "1.5s",
+              anim: "congrats-float-alt",
+            },
+            {
+              bottom: "10%",
+              right: "6%",
+              size: 16,
+              delay: "0.8s",
+              anim: "congrats-float",
+            },
+            {
+              top: "40%",
+              left: "3%",
+              size: 8,
+              delay: "2s",
+              anim: "congrats-star-twinkle",
+            },
+            {
+              top: "60%",
+              right: "4%",
+              size: 10,
+              delay: "0.3s",
+              anim: "congrats-star-twinkle",
+            },
           ].map((s, i) => (
             <div
               key={i}
@@ -374,7 +485,10 @@ export default function FirstLoginCongrats({ role }: FirstLoginCongratsProps) {
               }}
             >
               <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-                <path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 7.1-1.01L12 2z" fill="rgba(255,215,0,0.6)" />
+                <path
+                  d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 7.1-1.01L12 2z"
+                  fill="rgba(255,215,0,0.6)"
+                />
               </svg>
             </div>
           ))}
@@ -383,7 +497,9 @@ export default function FirstLoginCongrats({ role }: FirstLoginCongratsProps) {
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
             <div
               className="w-48 h-48 rounded-full border-2 border-amber-400/20"
-              style={{ animation: "congrats-pulse-ring 3s ease-in-out infinite" }}
+              style={{
+                animation: "congrats-pulse-ring 3s ease-in-out infinite",
+              }}
             />
           </div>
 
@@ -392,7 +508,10 @@ export default function FirstLoginCongrats({ role }: FirstLoginCongratsProps) {
             {/* Trophy icon with scale-in animation */}
             <div
               className={`flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br ${config.trophyGradient} shadow-lg ${config.trophyShadow}`}
-              style={{ animation: "congrats-scale-in 0.8s cubic-bezier(0.34,1.56,0.64,1) forwards" }}
+              style={{
+                animation:
+                  "congrats-scale-in 0.8s cubic-bezier(0.34,1.56,0.64,1) forwards",
+              }}
             >
               {config.trophyIcon}
             </div>
@@ -401,7 +520,8 @@ export default function FirstLoginCongrats({ role }: FirstLoginCongratsProps) {
             <div
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold tracking-[0.15em] uppercase"
               style={{
-                background: "linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.1))",
+                background:
+                  "linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,165,0,0.1))",
                 border: "1px solid rgba(255,215,0,0.25)",
                 color: "#ffd700",
                 animation: "congrats-slide-up 0.6s ease 0.3s both",
@@ -457,7 +577,8 @@ export default function FirstLoginCongrats({ role }: FirstLoginCongratsProps) {
               onClick={handleDismiss}
               className="mt-3 relative overflow-hidden rounded-2xl px-8 py-3.5 text-sm font-bold text-slate-900 tracking-wide uppercase transition-all hover:scale-105 active:scale-95 hover:shadow-xl hover:shadow-amber-500/25"
               style={{
-                background: "linear-gradient(135deg, #ffd700, #ffaa00, #ff8c00)",
+                background:
+                  "linear-gradient(135deg, #ffd700, #ffaa00, #ff8c00)",
                 animation: "congrats-slide-up 0.6s ease 1.1s both",
               }}
             >
@@ -465,7 +586,8 @@ export default function FirstLoginCongrats({ role }: FirstLoginCongratsProps) {
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                  background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
                   backgroundSize: "200% 100%",
                   animation: "congrats-shimmer 2s linear infinite",
                 }}

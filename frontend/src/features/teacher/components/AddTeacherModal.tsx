@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -36,7 +36,7 @@ function AddTeacherModal({
     setValue,
     formState: { errors },
   } = useForm<TeacherFormValues>({
-    resolver: zodResolver(teacherSchema),
+    resolver: zodResolver(teacherSchema) as Resolver<TeacherFormValues>,
 
     defaultValues: {
       fullName: "",
@@ -75,7 +75,12 @@ function AddTeacherModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Add Teacher" maxWidth="max-w-2xl">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Add Teacher"
+      maxWidth="max-w-2xl"
+    >
       <TeacherForm
         register={register}
         errors={errors}
