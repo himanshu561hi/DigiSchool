@@ -190,15 +190,7 @@ function LoginPage() {
 
           <div className="space-y-2 text-slate-600 dark:text-slate-300">
             <p>
-              <span className="font-medium">Manager:</span> manager@gmail.com
-            </p>
-
-            <p>
-              <span className="font-medium">Teacher:</span> teacher@gmail.com
-            </p>
-
-            <p>
-              <span className="font-medium">Student:</span> student@gmail.com
+              <span className="font-medium">Admin:</span> admin@digischool.com
             </p>
 
             <p>
