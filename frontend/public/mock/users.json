@@ -1,0 +1,13 @@
+{
+  "users": [
+    {
+      "id": "sa-1",
+      "firstName": "Super",
+      "lastName": "Admin",
+      "email": "admin@digischool.com",
+      "password": "123456",
+      "role": "SUPER_ADMIN",
+      "mustChangePassword": false
+    }
+  ]
+}
